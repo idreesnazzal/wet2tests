@@ -56,7 +56,7 @@ class SongManager:
             return "FAILURE"
 
         self.song_to_genre[sid] = gid
-        self.genre_changes[sid] = 0
+        self.genre_changes[sid] = 1
         self.genre_manager.increment_count(gid)
         return "SUCCESS"
 
@@ -155,7 +155,7 @@ def run_test_on_emulator(input_lines):
         except Exception:
             res = "INVALID_INPUT"
 
-        results.append(f"{cmd}: {res}")
+        results.append(f"{cmd}: {res}".strip())
     return results
 
 def main():
@@ -173,8 +173,8 @@ def main():
             lines = f.readlines()
         output = run_test_on_emulator(lines)
         out_fname = fname.replace(".in", ".out")
-        with open(os.path.join(args.output_dir, out_fname), "w") as fout:
-            fout.write("\n".join(output) + "\n")
+        with open(os.path.join(args.output_dir, out_fname), "w", encoding="utf-8") as fout:
+            fout.write("\n".join(line.strip() for line in output) + "\n")
 
 if __name__ == "__main__":
     main()

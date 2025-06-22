@@ -1,4 +1,5 @@
 commands:
+
 chmod +x run_all_student_tests.sh
 
 ./run_all_student_tests.sh

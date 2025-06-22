@@ -1,5 +1,6 @@
 import os
 import argparse
+
 from enum import Enum
 
 class StatusType(Enum):
@@ -8,81 +9,55 @@ class StatusType(Enum):
     ALLOCATION_ERROR = -2
     INVALID_INPUT = -3
 
-class Output:
-    def __init__(self, status, value=None):
-        self.status = status
-        self.value = value
-
-class DSpotify:
+class GenreManager:
     def __init__(self):
-        self.genre_parent = {}      # Union-Find
-        self.genre_song_count = {}
-        self.song_to_genre = {}
-        self.song_genre_changes = {}
-
-    def find_genre(self, gid):
-        if self.genre_parent[gid] != gid:
-            self.genre_parent[gid] = self.find_genre(self.genre_parent[gid])
-        return self.genre_parent[gid]
+        self.song_count = {}  # genre -> song count
 
     def add_genre(self, gid):
         if gid <= 0:
             return "INVALID_INPUT"
-        if gid in self.genre_parent:
+        if gid in self.song_count:
             return "FAILURE"
-        self.genre_parent[gid] = gid
-        self.genre_song_count[gid] = 0
+        self.song_count[gid] = 0
         return "SUCCESS"
+
+    def merge_genre(self, gid3):
+        if gid3 in self.song_count:
+            return "FAILURE"
+        self.song_count[gid3] = 0
+        return "SUCCESS"
+
+    def increment_count(self, gid):
+        self.song_count[gid] += 1
+
+    def decrement_count(self, gid):
+        if gid in self.song_count:
+            self.song_count[gid] -= 1
+
+    def get_song_count(self, gid):
+        if gid <= 0:
+            return "INVALID_INPUT"
+        if gid not in self.song_count:
+            return "FAILURE"
+        return f"SUCCESS, {self.song_count[gid]}"
+
+class SongManager:
+    def __init__(self, genre_manager):
+        self.song_to_genre = {}         # sid -> gid
+        self.genre_changes = {}         # sid -> number of changes
+        self.genre_manager = genre_manager
 
     def add_song(self, sid, gid):
         if sid <= 0 or gid <= 0:
             return "INVALID_INPUT"
         if sid in self.song_to_genre:
             return "FAILURE"
-        if gid not in self.genre_parent:
-            return "FAILURE"
-        root_gid = self.find_genre(gid)
-        self.song_to_genre[sid] = root_gid
-        self.song_genre_changes[sid] = 0
-        self.genre_song_count[root_gid] += 1
-        return "SUCCESS"
-
-    def merge_genres(self, gid1, gid2, gid3):
-        if gid1 <= 0 or gid2 <= 0 or gid3 <= 0:
-            return "INVALID_INPUT"
-        if gid1 == gid2 or gid1 == gid3 or gid2 == gid3:
-            return "INVALID_INPUT"
-        if gid1 not in self.genre_parent or gid2 not in self.genre_parent:
-            return "FAILURE"
-        if gid3 in self.genre_parent:
+        if gid not in self.genre_manager.song_count:
             return "FAILURE"
 
-        root1 = self.find_genre(gid1)
-        root2 = self.find_genre(gid2)
-
-        # Create the new genre gid3
-        self.genre_parent[gid3] = gid3
-        self.genre_song_count[gid3] = 0
-
-        # Collect songs before modifying anything
-        affected_songs = []
-        for sid, song_genre in self.song_to_genre.items():
-            root = self.find_genre(song_genre)
-            if root == root1 or root == root2:
-                affected_songs.append(sid)
-
-        # Move songs to gid3
-        for sid in affected_songs:
-            self.song_genre_changes[sid] += 1
-            self.song_to_genre[sid] = gid3
-            self.genre_song_count[gid3] += 1
-
-        # Update union-find parents and reset old genre counts
-        self.genre_parent[root1] = gid3
-        self.genre_parent[root2] = gid3
-        self.genre_song_count[root1] = 0
-        self.genre_song_count[root2] = 0
-
+        self.song_to_genre[sid] = gid
+        self.genre_changes[sid] = 0
+        self.genre_manager.increment_count(gid)
         return "SUCCESS"
 
     def get_song_genre(self, sid):
@@ -90,23 +65,58 @@ class DSpotify:
             return "INVALID_INPUT"
         if sid not in self.song_to_genre:
             return "FAILURE"
-        root = self.find_genre(self.song_to_genre[sid])
-        return f"SUCCESS, {root}"
+        return f"SUCCESS, {self.song_to_genre[sid]}"
 
-    def get_number_of_songs_by_genre(self, gid):
-        if gid <= 0:
-            return "INVALID_INPUT"
-        if gid not in self.genre_parent:
-            return "FAILURE"
-        root = self.find_genre(gid)
-        return f"SUCCESS, {self.genre_song_count.get(root, 0)}"
-
-    def get_number_of_genre_changes(self, sid):
+    def get_genre_changes(self, sid):
         if sid <= 0:
             return "INVALID_INPUT"
-        if sid not in self.song_genre_changes:
+        if sid not in self.genre_changes:
             return "FAILURE"
-        return f"SUCCESS, {self.song_genre_changes[sid]}"
+        return f"SUCCESS, {self.genre_changes[sid]}"
+
+    def reassign_songs_to_merged_genre(self, old_gids, new_gid):
+        for sid, gid in list(self.song_to_genre.items()):
+            if gid in old_gids:
+                self.song_to_genre[sid] = new_gid
+                self.genre_changes[sid] += 1
+                self.genre_manager.increment_count(new_gid)
+                self.genre_manager.decrement_count(gid)
+
+class DSpotify:
+    def __init__(self):
+        self.genre_manager = GenreManager()
+        self.song_manager = SongManager(self.genre_manager)
+
+    def add_genre(self, gid):
+        return self.genre_manager.add_genre(gid)
+
+    def add_song(self, sid, gid):
+        return self.song_manager.add_song(sid, gid)
+
+    def merge_genres(self, gid1, gid2, gid3):
+        if gid1 <= 0 or gid2 <= 0 or gid3 <= 0:
+            return "INVALID_INPUT"
+        if gid1 == gid2 or gid1 == gid3 or gid2 == gid3:
+            return "INVALID_INPUT"
+        if gid1 not in self.genre_manager.song_count or gid2 not in self.genre_manager.song_count:
+            return "FAILURE"
+
+        result = self.genre_manager.merge_genre(gid3)
+        if result != "SUCCESS":
+            return result
+
+        self.song_manager.reassign_songs_to_merged_genre({gid1, gid2}, gid3)
+        return "SUCCESS"
+
+    def get_song_genre(self, sid):
+        return self.song_manager.get_song_genre(sid)
+
+    def get_number_of_songs_by_genre(self, gid):
+        return self.genre_manager.get_song_count(gid)
+
+    def get_number_of_genre_changes(self, sid):
+        return self.song_manager.get_genre_changes(sid)
+
 
 # CamelCase to internal method name mapping
 command_map = {

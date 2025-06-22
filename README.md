@@ -8,4 +8,4 @@ how to find the output diffs:
 
 diff ResultOutputs/test1.out ExpectedOutputs/test1.out
 
-in case tets1 is failed
+in case test1 is failed

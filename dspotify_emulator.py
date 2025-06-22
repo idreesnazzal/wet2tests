@@ -43,7 +43,7 @@ class DSpotify:
             return "FAILURE"
         root_gid = self.find_genre(gid)
         self.song_to_genre[sid] = root_gid
-        self.song_genre_changes[sid] = 1
+        self.song_genre_changes[sid] = 0
         self.genre_song_count[root_gid] += 1
         return "SUCCESS"
 
@@ -59,20 +59,29 @@ class DSpotify:
 
         root1 = self.find_genre(gid1)
         root2 = self.find_genre(gid2)
+
+        # Create the new genre gid3
         self.genre_parent[gid3] = gid3
         self.genre_song_count[gid3] = 0
 
-        for sid in self.song_to_genre:
-            genre = self.find_genre(self.song_to_genre[sid])
-            if genre in {root1, root2}:
-                self.song_genre_changes[sid] += 1
-                self.song_to_genre[sid] = gid3
-                self.genre_song_count[gid3] += 1
+        # Collect songs before modifying anything
+        affected_songs = []
+        for sid, song_genre in self.song_to_genre.items():
+            root = self.find_genre(song_genre)
+            if root == root1 or root == root2:
+                affected_songs.append(sid)
 
-        self.genre_song_count[root1] = 0
-        self.genre_song_count[root2] = 0
+        # Move songs to gid3
+        for sid in affected_songs:
+            self.song_genre_changes[sid] += 1
+            self.song_to_genre[sid] = gid3
+            self.genre_song_count[gid3] += 1
+
+        # Update union-find parents and reset old genre counts
         self.genre_parent[root1] = gid3
         self.genre_parent[root2] = gid3
+        self.genre_song_count[root1] = 0
+        self.genre_song_count[root2] = 0
 
         return "SUCCESS"
 

@@ -1,0 +1,8 @@
+# ninja log v6
+3	524	7717172918906846	build.ninja	ca526ddda04a0e6b
+74	530	7717150552284424	CMakeFiles/dswet2.dir/dspotify25b2.cpp.obj	5cf2ac460e60ca95
+66	630	7717150552204126	CMakeFiles/dswet2.dir/main.cpp.obj	cbf39e802c970c5e
+631	891	7717150557852019	dswet2.exe	d2e15ca25095cc8d
+60	463	7718033584102827	CMakeFiles/dswet2.dir/main.cpp.obj	cbf39e802c970c5e
+4	405	7718047194229440	CMakeFiles/dswet2.dir/dspotify25b2.cpp.obj	5cf2ac460e60ca95
+406	694	7718047198237673	dswet2.exe	d2e15ca25095cc8d

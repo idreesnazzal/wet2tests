@@ -1,0 +1,14 @@
+==6138== Memcheck, a memory error detector
+==6138== Copyright (C) 2002-2022, and GNU GPL'd, by Julian Seward et al.
+==6138== Using Valgrind-3.22.0 and LibVEX; rerun with -h for copyright info
+==6138== Command: ./main.out
+==6138== 
+==6138== 
+==6138== HEAP SUMMARY:
+==6138==     in use at exit: 0 bytes in 0 blocks
+==6138==   total heap usage: 6,691 allocs, 6,691 frees, 335,359 bytes allocated
+==6138== 
+==6138== All heap blocks were freed -- no leaks are possible
+==6138== 
+==6138== For lists of detected and suppressed errors, rerun with: -s
+==6138== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)

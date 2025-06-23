@@ -1,0 +1,14 @@
+==5917== Memcheck, a memory error detector
+==5917== Copyright (C) 2002-2022, and GNU GPL'd, by Julian Seward et al.
+==5917== Using Valgrind-3.22.0 and LibVEX; rerun with -h for copyright info
+==5917== Command: ./main.out
+==5917== 
+==5917== 
+==5917== HEAP SUMMARY:
+==5917==     in use at exit: 0 bytes in 0 blocks
+==5917==   total heap usage: 6,588 allocs, 6,588 frees, 330,999 bytes allocated
+==5917== 
+==5917== All heap blocks were freed -- no leaks are possible
+==5917== 
+==5917== For lists of detected and suppressed errors, rerun with: -s
+==5917== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)

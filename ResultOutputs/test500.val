@@ -1,0 +1,14 @@
+==6096== Memcheck, a memory error detector
+==6096== Copyright (C) 2002-2022, and GNU GPL'd, by Julian Seward et al.
+==6096== Using Valgrind-3.22.0 and LibVEX; rerun with -h for copyright info
+==6096== Command: ./main.out
+==6096== 
+==6096== 
+==6096== HEAP SUMMARY:
+==6096==     in use at exit: 0 bytes in 0 blocks
+==6096==   total heap usage: 6,499 allocs, 6,499 frees, 329,663 bytes allocated
+==6096== 
+==6096== All heap blocks were freed -- no leaks are possible
+==6096== 
+==6096== For lists of detected and suppressed errors, rerun with: -s
+==6096== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)

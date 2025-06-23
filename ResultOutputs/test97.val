@@ -1,0 +1,14 @@
+==6307== Memcheck, a memory error detector
+==6307== Copyright (C) 2002-2022, and GNU GPL'd, by Julian Seward et al.
+==6307== Using Valgrind-3.22.0 and LibVEX; rerun with -h for copyright info
+==6307== Command: ./main.out
+==6307== 
+==6307== 
+==6307== HEAP SUMMARY:
+==6307==     in use at exit: 0 bytes in 0 blocks
+==6307==   total heap usage: 6,569 allocs, 6,569 frees, 329,903 bytes allocated
+==6307== 
+==6307== All heap blocks were freed -- no leaks are possible
+==6307== 
+==6307== For lists of detected and suppressed errors, rerun with: -s
+==6307== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)

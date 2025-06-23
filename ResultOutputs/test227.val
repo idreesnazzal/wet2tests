@@ -1,0 +1,14 @@
+==4840== Memcheck, a memory error detector
+==4840== Copyright (C) 2002-2022, and GNU GPL'd, by Julian Seward et al.
+==4840== Using Valgrind-3.22.0 and LibVEX; rerun with -h for copyright info
+==4840== Command: ./main.out
+==4840== 
+==4840== 
+==4840== HEAP SUMMARY:
+==4840==     in use at exit: 0 bytes in 0 blocks
+==4840==   total heap usage: 6,463 allocs, 6,463 frees, 327,047 bytes allocated
+==4840== 
+==4840== All heap blocks were freed -- no leaks are possible
+==4840== 
+==4840== For lists of detected and suppressed errors, rerun with: -s
+==4840== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)

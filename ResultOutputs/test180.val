@@ -1,0 +1,14 @@
+==1669== Memcheck, a memory error detector
+==1669== Copyright (C) 2002-2022, and GNU GPL'd, by Julian Seward et al.
+==1669== Using Valgrind-3.22.0 and LibVEX; rerun with -h for copyright info
+==1669== Command: ./main.out
+==1669== 
+==1669== 
+==1669== HEAP SUMMARY:
+==1669==     in use at exit: 0 bytes in 0 blocks
+==1669==   total heap usage: 6,583 allocs, 6,583 frees, 330,727 bytes allocated
+==1669== 
+==1669== All heap blocks were freed -- no leaks are possible
+==1669== 
+==1669== For lists of detected and suppressed errors, rerun with: -s
+==1669== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)

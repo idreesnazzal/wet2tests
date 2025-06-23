@@ -1,27 +1,21 @@
-// DSpotify.cpp - Implementation file for DSpotify API
 #include "dspotify25b2.h"
+
 class Genre;
 class Song;
 DSpotify::DSpotify() : UF() {}
-
-    DSpotify::~DSpotify() {
-        int count =0;
-        while(count < UF.genres.fullSize) {
-            NodeHash<shared_ptr<Genre>>* temp = UF.genres.arr[count];
-
-            while(temp) {
-                if(temp->value->root!=nullptr){
-                    temp->value->root->genre=nullptr;
-                    temp->value->root=nullptr;
-                }
-                temp=temp->next;
-
+DSpotify::~DSpotify() {
+    int count =0;
+    while(count < UF.genres.fullSize) {
+        NodeHash<shared_ptr<Genre>>* temp = UF.genres.arr[count];
+        while(temp) {
+            if(temp->value->root!=nullptr){
+                temp->value->root->genre=nullptr;
+                temp->value->root=nullptr;
             }
-            count++;
-            }
-
-    }
-
+            temp=temp->next;
+        }
+        count++;}
+}
 
 StatusType DSpotify::addGenre(int genreId) {
     if (genreId <= 0) return StatusType::INVALID_INPUT;

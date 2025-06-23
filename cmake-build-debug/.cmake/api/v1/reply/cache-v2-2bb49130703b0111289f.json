@@ -55,7 +55,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "c:/Users/idreesnazzal/CLionProjects/dswet2/cmake-build-debug"
+			"value" : "c:/Users/idreesnazzal/Desktop/wet2tests/cmake-build-debug"
 		},
 		{
 			"name" : "CMAKE_CACHE_MAJOR_VERSION",
@@ -575,7 +575,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "C:/Users/idreesnazzal/CLionProjects/dswet2/cmake-build-debug/CMakeFiles/pkgRedirects"
+			"value" : "C:/Users/idreesnazzal/Desktop/wet2tests/cmake-build-debug/CMakeFiles/pkgRedirects"
 		},
 		{
 			"name" : "CMAKE_GENERATOR",
@@ -647,7 +647,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "C:/Users/idreesnazzal/CLionProjects/dswet2"
+			"value" : "C:/Users/idreesnazzal/Desktop/wet2tests"
 		},
 		{
 			"name" : "CMAKE_INSTALL_PREFIX",
@@ -1291,7 +1291,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "C:/Users/idreesnazzal/CLionProjects/dswet2/cmake-build-debug"
+			"value" : "C:/Users/idreesnazzal/Desktop/wet2tests/cmake-build-debug"
 		},
 		{
 			"name" : "dswet2_IS_TOP_LEVEL",
@@ -1315,7 +1315,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "C:/Users/idreesnazzal/CLionProjects/dswet2"
+			"value" : "C:/Users/idreesnazzal/Desktop/wet2tests"
 		}
 	],
 	"kind" : "cache",

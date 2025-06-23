@@ -1,13 +1,9 @@
-//
-// Created by idreesnazzal on 15/06/2025.
-//
-
 #ifndef DSWET2_GENRE_H
 #define DSWET2_GENRE_H
 #include <memory>
 #include "Song.h"
 class Genre {
- public:
+public:
     int id;
     int numOfSongs;
     shared_ptr<Song> root;

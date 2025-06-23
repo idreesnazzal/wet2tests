@@ -1,14 +1,13 @@
-//
-// Created by idreesnazzal on 15/06/2025.
-//
-// Created by idreesnazzal on 15/06/2025.
+
 #pragma once
 class Genre;
 #include <memory>
+using std::shared_ptr;
+
 #ifndef DSWET2_SONG_H
 #define DSWET2_SONG_H
 class Song {
-    public:
+public:
     int id;
     int joinCounter;
     int numOfChanges;

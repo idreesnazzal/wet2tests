@@ -1,7 +1,3 @@
-//
-// Created by idreesnazzal on 15/06/2025.
-//
-
 #ifndef DSWET2_UNIONFIND_H
 
 #define DSWET2_UNIONFIND_H
@@ -115,7 +111,7 @@ void hashTable<T>::resize() {
 template<class T>
 NodeHash<T>* hashTable<T>::find(int id) const{
 
-    NodeHash<T>*tran sfer= this->arr[hash(id)];
+    NodeHash<T>*transfer= this->arr[hash(id)];
     while(transfer!= nullptr)
     {
         if(transfer->value->id==id)
@@ -164,7 +160,6 @@ public:
         NodeHash<std::shared_ptr<Genre>>* genre3=this->genres.find(genreId3);
         genre3->value->numOfSongs=genre1->value->numOfSongs+genre2->value->numOfSongs;
         if(!genre1->value->numOfSongs && !genre2->value->numOfSongs ) return;
-        
         if(genre1->value->numOfSongs ==0 && genre2->value->numOfSongs) {
             genre2->value->root->genre = genre3->value;
             genre3->value->root= genre2->value->root;
